@@ -8,7 +8,8 @@
 		"laravel/framework": "4.2.*",
 		"gloudemans/shoppingcart": "~1.2",
 		"swiftmailer/swiftmailer": "@stable",
-		"ext-mcrypt": "^7.0"
+		"ext-mcrypt": "^7.0",
+		"nesbot/carbon": "^1.22"
 	},
 	"autoload": {
 		"classmap": [
