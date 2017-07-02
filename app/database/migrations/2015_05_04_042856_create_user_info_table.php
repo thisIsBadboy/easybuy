@@ -21,7 +21,7 @@ class CreateUserInfoTable extends Migration {
             $table->string('password');
             $table->rememberToken();
             $table->string('contact');
-            $table->string('district');
+            $table->string('district')->nullable();
             $table->string('check_user');
             $table->timestamps();
         });
