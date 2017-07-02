@@ -12,7 +12,9 @@ class AdminController extends BaseController{
 
 		for($i=0; $i<4; $i++){
 			if($i < 3){
-				$res = DB::select('Select count(*) as cnt, sum(total_price) as total_price from order_list where DATEDIFF(NOW(), order_time) >=0 AND DATEDIFF(NOW(), order_time) < '.$day[$i]);
+				//$res = DB::select('Select count(*) as cnt, sum(total_price) as total_price from order_list where DATEDIFF(NOW(), order_time) >=0 AND DATEDIFF(NOW(), order_time) < '.$day[$i]);
+
+				$res = DB::select('Select count(*) as cnt, sum(total_price) as total_price from order_list where EXTRACT(DAY FROM NOW() - order_time) >=0 AND EXTRACT(DAY FROM NOW() - order_time) < '.$day[$i]);
 			}else{
 				$res = DB::select('Select count(*) as cnt, sum(total_price) as total_price from order_list');
 			}
@@ -40,7 +42,9 @@ class AdminController extends BaseController{
 
 		for($i=0; $i<4; $i++){
 			if($i<3){
-				$res = DB::select('Select count(*) as cnt, sum(total_price) as total_price from order_list where DATEDIFF(NOW(), payment_time) >=0 AND DATEDIFF(NOW(), payment_time) < '.$day[$i]);
+				//$res = DB::select('Select count(*) as cnt, sum(total_price) as total_price from order_list where DATEDIFF(NOW(), payment_time) >=0 AND DATEDIFF(NOW(), payment_time) < '.$day[$i]);
+
+				$res = DB::select('Select count(*) as cnt, sum(total_price) as total_price from order_list where EXTRACT(DAY FROM NOW() - payment_time) >=0 AND EXTRACT(DAY FROM NOW() - payment_time) < '.$day[$i]);
 			}else{
 				$res = DB::select('Select count(*) as cnt, sum(total_price) as total_price from order_list');
 			}
@@ -76,14 +80,18 @@ class AdminController extends BaseController{
 
 		if($history_type == 'order_history'){
 
-			$res = DB::select('Select * from order_list where DATEDIFF(NOW(), order_time) >=0 AND DATEDIFF(NOW(), order_time) < '.$history_day);
+			//$res = DB::select('Select * from order_list where DATEDIFF(NOW(), order_time) >=0 AND DATEDIFF(NOW(), order_time) < '.$history_day);
+
+			$res = DB::select('Select * from order_list where EXTRACT(DAY FROM NOW() - order_time) >=0 AND EXTRACT(DAY FROM NOW() - order_time) < '.$history_day);
 
 			return View::make('order_list')
 					->with('title', 'Order History | Easybuy')
 					->with('res', $res);
 
 		}elseif($history_type == 'sale_history'){
-			$res = DB::select('Select * from order_list where DATEDIFF(NOW(), payment_time) >=0 AND DATEDIFF(NOW(), payment_time) < '.$history_day);
+			//$res = DB::select('Select * from order_list where DATEDIFF(NOW(), payment_time) >=0 AND DATEDIFF(NOW(), payment_time) < '.$history_day);
+
+			$res = DB::select('Select * from order_list where EXTRACT(DAY FROM NOW() - payment_time) >=0 AND EXTRACT(DAY FROM NOW() - payment_time) < '.$history_day);
 
 			return View::make('order_list')
 					->with('title', 'Sale History | Easybuy')
